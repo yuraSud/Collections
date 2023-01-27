@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Set View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="setViewController" id="Y6W-OH-hqX" customClass="setViewController" customModule="Collections_1_6" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kys-du-qh3">
+                                <rect key="frame" x="20" y="10" width="335" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cDg-NS-JrA">
+                                <rect key="frame" x="20" y="59" width="335" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BYJ-1g-sf6">
+                                <rect key="frame" x="20" y="108" width="335" height="297.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIC-KV-vae">
+                                        <rect key="frame" x="82.5" y="0.0" width="170.5" height="34.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="All matching letters"/>
+                                        <connections>
+                                            <action selector="allMatcinng:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Vul-23-dvB"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNJ-3g-u8k">
+                                        <rect key="frame" x="142.5" y="39.5" width="50" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NON-Db-RlI">
+                                        <rect key="frame" x="33.5" y="94.5" width="268" height="34.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="All characters that do not match"/>
+                                        <connections>
+                                            <action selector="notMatching:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="mhn-wD-xsN"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVe-Ab-5a2">
+                                        <rect key="frame" x="142.5" y="134" width="50" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ln4-xu-4ql">
+                                        <rect key="frame" x="8" y="189" width="319" height="53.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" titleAlignment="center">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="All unique characters from the first text field that do not match in text fields">
+                                                    <attributes>
+                                                        <font key="NSFont" size="17" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="uniqueCharactersFirstTF:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ulk-Sj-HV6"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8Q-PH-Ucj">
+                                        <rect key="frame" x="142.5" y="247.5" width="50" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="kys-du-qh3" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="6ZW-lW-Ixn"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="kys-du-qh3" secondAttribute="trailing" constant="20" id="AYe-Et-g2A"/>
+                            <constraint firstItem="cDg-NS-JrA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="BXB-Gx-0g5"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="BYJ-1g-sf6" secondAttribute="trailing" constant="20" id="F1N-pe-dSw"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="cDg-NS-JrA" secondAttribute="trailing" constant="20" id="QWf-lY-CQq"/>
+                            <constraint firstItem="BYJ-1g-sf6" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="U9o-DH-bZn"/>
+                            <constraint firstItem="kys-du-qh3" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="Uft-Vp-pXP"/>
+                            <constraint firstItem="BYJ-1g-sf6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="VQo-9v-hR4"/>
+                            <constraint firstItem="BYJ-1g-sf6" firstAttribute="top" secondItem="cDg-NS-JrA" secondAttribute="bottom" constant="15" id="wzl-GP-DAc"/>
+                            <constraint firstItem="cDg-NS-JrA" firstAttribute="top" secondItem="kys-du-qh3" secondAttribute="bottom" constant="15" id="ysq-Aj-7Je"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="firstTextField" destination="kys-du-qh3" id="afd-tF-LYf"/>
+                        <outlet property="labelAllMatching" destination="bNJ-3g-u8k" id="9oe-mo-BK3"/>
+                        <outlet property="labelNotMatching" destination="sVe-Ab-5a2" id="9y7-pK-gJm"/>
+                        <outlet property="labelUniqueFirstTF" destination="O8Q-PH-Ucj" id="ggx-yD-nrQ"/>
+                        <outlet property="secondTextField" destination="cDg-NS-JrA" id="q57-Tf-5Wv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="252" y="-150"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
