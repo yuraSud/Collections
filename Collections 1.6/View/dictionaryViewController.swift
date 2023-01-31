@@ -11,32 +11,35 @@ class dictionaryViewController: UIViewController {
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        //layout.scrollDirection  = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.contentMode = .center
-        
         return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionView()
+        setActivity()
+        view.backgroundColor = .white
+        activityIndycator.startAnimating()
+        DispatchQueue.global(qos: .utility).async {
+            (self.arrayContact, self.dictionaryContact) = self.createData()
+            DispatchQueue.main.async {
+                self.collectionView.alpha = 1.0
+                self.activityIndycator.stopAnimating()
+            }
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+    }
+    func setActivity(){
         activityIndycator.center = view.center
         activityIndycator.hidesWhenStopped = true
         activityIndycator.color = .blue
         view.addSubview(activityIndycator)
-        activityIndycator.startAnimating()
-        
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        (arrayContact, dictionaryContact) = createData()
-        print(arrayContact.isEmpty)
-        print(dictionaryContact.count)
-        activityIndycator.stopAnimating()
-    }
-
     func setCollectionView(){
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = .init(top: 0, left: 0, bottom: 0, right: 0)
@@ -44,6 +47,7 @@ class dictionaryViewController: UIViewController {
         layout.minimumInteritemSpacing = 0
         collectionView.collectionViewLayout = layout
         collectionView.frame = view.bounds
+        collectionView.alpha = 0.2
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -68,7 +72,7 @@ extension dictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return dictionaryStruct.menuItem.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -107,7 +111,14 @@ extension dictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
             (time, text) = dictionaryStruct.findLasttDict(dictionary: dictionaryContact)
             
         case 4 :
-            (time, text) = dictionaryStruct.findNoElelentsArr(array: arrayContact)
+            cell.startActivity()
+            DispatchQueue.global().async {
+                (time, text) = self.dictionaryStruct.findNoElelentsArr(array: self.arrayContact)
+                DispatchQueue.main.async {
+                    cell.stopAnimating()
+                    cell.setResultTime(time: time, element: text)
+                }
+            }
         
         case 5 :
             (time, text) = dictionaryStruct.findNoElementsDict(dictionary:  dictionaryContact)

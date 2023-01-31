@@ -10,6 +10,7 @@ import UIKit
 class dictionaryCollectionViewCell: UICollectionViewCell {
     var dictStruct = DictionaryStruct()
     
+    var activityIndycator = UIActivityIndicatorView(style: .medium)
     static let identifier = "myCell"
     let label : UILabel = {
         let lab = UILabel()
@@ -24,6 +25,7 @@ class dictionaryCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super .init(frame: frame)
         contentView.addSubview(label)
+        setActivity()
     }
     
     required init?(coder: NSCoder) {
@@ -33,6 +35,22 @@ class dictionaryCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         label.frame = contentView.bounds
+        activityIndycator.center = contentView.center
+    }
+   
+    func startActivity(){
+        label.text = ""
+        activityIndycator.startAnimating()
+        backgroundColor = .white
+    }
+    func stopAnimating(){
+        activityIndycator.stopAnimating()
+    }
+    
+    func setActivity(){
+        contentView.addSubview(activityIndycator)
+        activityIndycator.hidesWhenStopped = true
+        activityIndycator.color = .red
     }
     
     func setLabelForStart(for indexPath: Int){

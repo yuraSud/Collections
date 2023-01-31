@@ -59,20 +59,24 @@ extension arrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         switch indexPath.row {
         case 0 where numberCells == 1 :
             cell.startActivity()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1){
+            DispatchQueue.global().async{
                 (self.timeCreateArray, self.fullArray) = cell.createArrayForStart()
-                self.appendCells()
-                cell.stopAnimating()
+                DispatchQueue.main.async {
+                    self.appendCells()
+                    cell.stopAnimating()
+                }
             }
             
         case 1 :
             cell.startActivity()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1){
+            DispatchQueue.global().async{
                 print(self.fullArray.count)
                 let timeOperation = cell.array.insertToStartOneByOne(array: self.fullArray)
-                cell.stopAnimating()
-                cell.setResultTime(time: timeOperation)
-                print(self.fullArray.count)
+                DispatchQueue.main.async {
+                    cell.stopAnimating()
+                    cell.setResultTime(time: timeOperation)
+                    print(self.fullArray.count)
+                }
             }
             
         case 2 :
@@ -81,10 +85,12 @@ extension arrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
         case 3 :
             cell.startActivity()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1){
+            DispatchQueue.global().async{
                 let timeOperation = cell.array.insertToMiddleOneByOne(array: self.fullArray)
-                cell.stopAnimating()
-                cell.setResultTime(time: timeOperation)
+                DispatchQueue.main.async {
+                    cell.stopAnimating()
+                    cell.setResultTime(time: timeOperation)
+                }
             }
             
         case 4 :
@@ -93,10 +99,12 @@ extension arrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
         case 5 :
             cell.startActivity()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1){
+            DispatchQueue.global().async{
                 let timeOperation = cell.array.appendToEndOneByOne(array: self.fullArray)
-                cell.stopAnimating()
-                cell.setResultTime(time: timeOperation)
+                DispatchQueue.main.async {
+                    cell.stopAnimating()
+                    cell.setResultTime(time: timeOperation)
+                }
             }
             
         case 6 :
@@ -105,10 +113,12 @@ extension arrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
         case 7 :
             cell.startActivity()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1){
+            DispatchQueue.global().async{
                 let timeOperation = cell.array.removeFirstOneByOne(array: self.fullArray)
-                cell.stopAnimating()
-                cell.setResultTime(time: timeOperation)
+                DispatchQueue.main.async {
+                    cell.stopAnimating()
+                    cell.setResultTime(time: timeOperation)
+                }
             }
             
         case 8 :
@@ -117,10 +127,12 @@ extension arrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
         case 9 :
             cell.startActivity()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1){
+            DispatchQueue.global().async{
                 let timeOperation = cell.array.removeMiddleOneByOne(array:  self.fullArray)
-                cell.stopAnimating()
-                cell.setResultTime(time: timeOperation)
+                DispatchQueue.main.async {
+                    cell.stopAnimating()
+                    cell.setResultTime(time: timeOperation)
+                }
             }
             
         case 10 :
@@ -129,10 +141,12 @@ extension arrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
         case 11 :
             cell.startActivity()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1){
+            DispatchQueue.global().async{
                 let timeOperation = cell.array.removeLastOneByOne(array: self.fullArray)
-                cell.stopAnimating()
-                cell.setResultTime(time: timeOperation)
+                DispatchQueue.main.async {
+                    cell.stopAnimating()
+                    cell.setResultTime(time: timeOperation)
+                }
             }
             
         case 12 :
