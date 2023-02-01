@@ -68,8 +68,10 @@ class arrayCollectionViewCell: UICollectionViewCell {
         activityIndycator.stopAnimating()
     }
     
-    func setResultTime(time:Float){
+    func setResultTime(time:inout Float){
         backgroundColor = .white
+        activityIndycator.stopAnimating()
         myLabel.text = "Time creations = \(time) sec"
+        time = 0
     }
 }

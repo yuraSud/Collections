@@ -9,26 +9,25 @@ import Foundation
 
 struct Methods {
     let titleLabel: String
-    let tag: Int
 }
 
 struct ArraysModel {
     var startedArray = [Int]()
     
     let arrayLabelMethods = [
-        Methods(titleLabel: "Generate an array of integers with 10_000_000 elements", tag: 0),
-        Methods(titleLabel: "Insert at the beginning of an array 1000 elements one-by-one", tag: 1),
-        Methods(titleLabel: "Insert at the beginning of an array 1000 elements at once", tag: 2),
-        Methods(titleLabel: "Insert in the middle of an array 1000 elements one-by-one", tag: 3),
-        Methods(titleLabel: "Insert in the middle of an array 1000 elements at once", tag: 4),
-        Methods(titleLabel: "Append to the end of an array 1000 elements one-by-one", tag: 5),
-        Methods(titleLabel: "Append to the end of an array 1000 elements at once", tag: 6),
-        Methods(titleLabel: "Remove at the beginning 1000 elements one-by-one", tag: 7),
-        Methods(titleLabel: "Remove at the beginning 1000 elements at once", tag: 8),
-        Methods(titleLabel: "Remove in the middle 1000 elements one-by-one", tag: 9),
-        Methods(titleLabel: "Remove in the middle 1000 elements at once", tag: 10),
-        Methods(titleLabel: "Remove at the end 1000 elements one-by-one", tag: 11),
-        Methods(titleLabel: "Remove at the end 1000 elements at once", tag: 12)
+        Methods(titleLabel: "Generate an array of integers with 10_000_000 elements"),
+        Methods(titleLabel: "Insert at the beginning of an array 1000 elements one-by-one"),
+        Methods(titleLabel: "Insert at the beginning of an array 1000 elements at once"),
+        Methods(titleLabel: "Insert in the middle of an array 1000 elements one-by-one"),
+        Methods(titleLabel: "Insert in the middle of an array 1000 elements at once"),
+        Methods(titleLabel: "Append to the end of an array 1000 elements one-by-one"),
+        Methods(titleLabel: "Append to the end of an array 1000 elements at once"),
+        Methods(titleLabel: "Remove at the beginning 1000 elements one-by-one"),
+        Methods(titleLabel: "Remove at the beginning 1000 elements at once"),
+        Methods(titleLabel: "Remove in the middle 1000 elements one-by-one"),
+        Methods(titleLabel: "Remove in the middle 1000 elements at once"),
+        Methods(titleLabel: "Remove at the end 1000 elements one-by-one"),
+        Methods(titleLabel: "Remove at the end 1000 elements at once")
     ]
     
     mutating func createArray() -> Float {

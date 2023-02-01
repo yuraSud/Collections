@@ -56,9 +56,13 @@ extension arrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! arrayCollectionViewCell
         
+        cell.startActivity()
+        
+        var timeOperation: Float = 0.0
+        
         switch indexPath.row {
+        
         case 0 where numberCells == 1 :
-            cell.startActivity()
             DispatchQueue.global().async{
                 (self.timeCreateArray, self.fullArray) = cell.createArrayForStart()
                 DispatchQueue.main.async {
@@ -68,93 +72,76 @@ extension arrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             }
             
         case 1 :
-            cell.startActivity()
             DispatchQueue.global().async{
-                print(self.fullArray.count)
-                let timeOperation = cell.array.insertToStartOneByOne(array: self.fullArray)
+                timeOperation = cell.array.insertToStartOneByOne(array: self.fullArray)
                 DispatchQueue.main.async {
-                    cell.stopAnimating()
-                    cell.setResultTime(time: timeOperation)
-                    print(self.fullArray.count)
+                    cell.setResultTime(time: &timeOperation)
                 }
             }
             
         case 2 :
-            let timeOperation = cell.array.insertToStartAtOnce(array: fullArray)
-            cell.setResultTime(time: timeOperation)
+            timeOperation = cell.array.insertToStartAtOnce(array: fullArray)
             
         case 3 :
-            cell.startActivity()
             DispatchQueue.global().async{
-                let timeOperation = cell.array.insertToMiddleOneByOne(array: self.fullArray)
+                timeOperation = cell.array.insertToMiddleOneByOne(array: self.fullArray)
                 DispatchQueue.main.async {
-                    cell.stopAnimating()
-                    cell.setResultTime(time: timeOperation)
+                    cell.setResultTime(time: &timeOperation)
                 }
             }
             
         case 4 :
-            let timeOperation = cell.array.insertToMiddleAtOnce(array: fullArray)
-            cell.setResultTime(time: timeOperation)
+            timeOperation = cell.array.insertToMiddleAtOnce(array: fullArray)
             
         case 5 :
-            cell.startActivity()
             DispatchQueue.global().async{
-                let timeOperation = cell.array.appendToEndOneByOne(array: self.fullArray)
+                timeOperation = cell.array.appendToEndOneByOne(array: self.fullArray)
                 DispatchQueue.main.async {
-                    cell.stopAnimating()
-                    cell.setResultTime(time: timeOperation)
+                    cell.setResultTime(time: &timeOperation)
                 }
             }
             
         case 6 :
-            let timeOperation = cell.array.appendToEndAtOnce(array: fullArray)
-            cell.setResultTime(time: timeOperation)
+            timeOperation = cell.array.appendToEndAtOnce(array: fullArray)
             
         case 7 :
-            cell.startActivity()
             DispatchQueue.global().async{
-                let timeOperation = cell.array.removeFirstOneByOne(array: self.fullArray)
+                timeOperation = cell.array.removeFirstOneByOne(array: self.fullArray)
                 DispatchQueue.main.async {
-                    cell.stopAnimating()
-                    cell.setResultTime(time: timeOperation)
+                    cell.setResultTime(time: &timeOperation)
                 }
             }
             
         case 8 :
-            let timeOperation = cell.array.removeFirstAtOnce(array: fullArray)
-            cell.setResultTime(time: timeOperation)
+            timeOperation = cell.array.removeFirstAtOnce(array: fullArray)
             
         case 9 :
-            cell.startActivity()
             DispatchQueue.global().async{
-                let timeOperation = cell.array.removeMiddleOneByOne(array:  self.fullArray)
+                timeOperation = cell.array.removeMiddleOneByOne(array:  self.fullArray)
                 DispatchQueue.main.async {
-                    cell.stopAnimating()
-                    cell.setResultTime(time: timeOperation)
+                    cell.setResultTime(time: &timeOperation)
                 }
             }
             
         case 10 :
-            let timeOperation = cell.array.removeMiddleAtOnce(array: fullArray)
-            cell.setResultTime(time: timeOperation)
+            timeOperation = cell.array.removeMiddleAtOnce(array: fullArray)
             
         case 11 :
-            cell.startActivity()
             DispatchQueue.global().async{
-                let timeOperation = cell.array.removeLastOneByOne(array: self.fullArray)
+                timeOperation = cell.array.removeLastOneByOne(array: self.fullArray)
                 DispatchQueue.main.async {
-                    cell.stopAnimating()
-                    cell.setResultTime(time: timeOperation)
+                    cell.setResultTime(time: &timeOperation)
                 }
             }
             
         case 12 :
-            let timeOperation = cell.array.removeLastAtOnce(array: fullArray)
-            cell.setResultTime(time: timeOperation)
+            timeOperation = cell.array.removeLastAtOnce(array: fullArray)
         
         default: break
         }
+        
+        guard timeOperation != 0 else { return }
+            cell.setResultTime(time: &timeOperation)
     }
     
     fileprivate func appendCells(){
