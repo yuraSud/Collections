@@ -7,7 +7,7 @@ class dictionaryViewController: UIViewController {
     var arrayContact = [Contact]()
     var dictionaryContact: [String:String] = [:]
     var dictionaryStruct = DictionaryStruct()
-    var activityIndycator = UIActivityIndicatorView(style: .medium)
+    var activityIndicator = UIActivityIndicatorView(style: .medium)
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -21,25 +21,23 @@ class dictionaryViewController: UIViewController {
         setCollectionView()
         setActivity()
         view.backgroundColor = .white
-        activityIndycator.startAnimating()
+        
         DispatchQueue.global(qos: .utility).async {
             (self.arrayContact, self.dictionaryContact) = self.createData()
             DispatchQueue.main.async {
                 self.collectionView.alpha = 1.0
-                self.activityIndycator.stopAnimating()
+                self.activityIndicator.stopAnimating()
             }
         }
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-    }
+    
     func setActivity(){
-        activityIndycator.center = view.center
-        activityIndycator.hidesWhenStopped = true
-        activityIndycator.color = .blue
-        view.addSubview(activityIndycator)
+        activityIndicator.hidesWhenStopped = true
+        let barButton = UIBarButtonItem(customView: activityIndicator)
+        self.navigationItem.setRightBarButton(barButton, animated: true)
+        activityIndicator.startAnimating()
     }
+    
     func setCollectionView(){
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = .init(top: 0, left: 0, bottom: 0, right: 0)
@@ -47,7 +45,7 @@ class dictionaryViewController: UIViewController {
         layout.minimumInteritemSpacing = 0
         collectionView.collectionViewLayout = layout
         collectionView.frame = view.bounds
-        collectionView.alpha = 0.2
+        collectionView.alpha = 0.1
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -94,8 +92,10 @@ extension dictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? dictionaryCollectionViewCell else {fatalError("Not found cell at 3th screen")}
-        var time: Float = 0.0
+        var time: Float = 0
         var text: String? = nil
+        
+        guard !arrayContact.isEmpty else {return}
         
         switch indexPath.row {
         case 0 :
@@ -116,7 +116,7 @@ extension dictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
                 (time, text) = self.dictionaryStruct.findNoElelentsArr(array: self.arrayContact)
                 DispatchQueue.main.async {
                     cell.stopAnimating()
-                    cell.setResultTime(time: time, element: text)
+                    cell.setResultTime(time: &time, element: text)
                 }
             }
         
@@ -125,8 +125,8 @@ extension dictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
             
         default: break
         }
-        
-        cell.setResultTime(time: time, element: text)
+        guard time != 0 else { return }
+        cell.setResultTime(time: &time, element: text)
     }
 }
 

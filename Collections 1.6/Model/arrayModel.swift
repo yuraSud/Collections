@@ -13,6 +13,7 @@ struct Methods {
 
 struct ArraysModel {
     var startedArray = [Int]()
+    var arrayAfterOperrations = [Int]()
     
     let arrayLabelMethods = [
         Methods(titleLabel: "Generate an array of integers with 10_000_000 elements"),
@@ -37,136 +38,114 @@ struct ArraysModel {
         return Float(diff)
     }
     
-    func insertToStartOneByOne(array: [Int]) -> Float {
-        var array = array
+    mutating func insertToStartOneByOne(array: [Int]) -> Float {
+        arrayAfterOperrations = array
         let start = CFAbsoluteTimeGetCurrent()
         for i in 1...1000 {
-            array.insert(i, at: 0)
+            arrayAfterOperrations.insert(i, at: 0)
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
     
-    func insertToStartAtOnce(array: [Int]) -> Float {
-        var array = array
+    mutating func insertToStartAtOnce(array: [Int]) -> Float {
+        arrayAfterOperrations = array
         let start = CFAbsoluteTimeGetCurrent()
         let arrayAppend = Array(1...1000)
-        array.insert(contentsOf: arrayAppend, at: 0)
+        arrayAfterOperrations.insert(contentsOf: arrayAppend, at: 0)
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
     
-    func insertToMiddleOneByOne(array: [Int]) -> Float {
-        var array = array
-        print(array.count)
+    mutating func insertToMiddleOneByOne(array: [Int]) -> Float {
+        arrayAfterOperrations = array
         let start = CFAbsoluteTimeGetCurrent()
         for i in 1...1000 {
             let index = array.count/2
-            array.insert(i, at: index)
+            arrayAfterOperrations.insert(i, at: index)
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
     
-    func insertToMiddleAtOnce(array: [Int]) -> Float {
-        var array = array
-        print(array.count)
-        let index = array.count/2
+    mutating func insertToMiddleAtOnce(array: [Int]) -> Float {
+        arrayAfterOperrations = array
+        let index = arrayAfterOperrations.count/2
         let start = CFAbsoluteTimeGetCurrent()
         let arrayAppend = Array(1...1000)
-        array.insert(contentsOf: arrayAppend, at: index)
+        arrayAfterOperrations.insert(contentsOf: arrayAppend, at: index)
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
-    func appendToEndOneByOne(array: [Int]) -> Float {
-        var array = array
-        print(array.count)
+    mutating func appendToEndOneByOne(array: [Int]) -> Float {
+        arrayAfterOperrations = array
         let start = CFAbsoluteTimeGetCurrent()
         for i in 1...1000 {
-            array.append(i)
+            arrayAfterOperrations.append(i)
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
     
-    func appendToEndAtOnce(array: [Int]) -> Float {
-        var array = array
-        print(array.count)
+    mutating func appendToEndAtOnce(array: [Int]) -> Float {
+        arrayAfterOperrations = array
         let start = CFAbsoluteTimeGetCurrent()
         let arrayAppend = Array(1...1000)
-        array.append(contentsOf: arrayAppend)
+        arrayAfterOperrations.append(contentsOf: arrayAppend)
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
     
-    func removeFirstOneByOne(array: [Int]) -> Float {
-        var array = array
-        print(array.count)
+    mutating func removeFirstOneByOne(array: [Int]) -> Float {
+        arrayAfterOperrations = array
         let start = CFAbsoluteTimeGetCurrent()
         for _ in 1...1000 {
-            array.removeFirst()
+            arrayAfterOperrations.removeFirst()
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
-    func removeFirstAtOnce(array: [Int]) -> Float {
-        var array = array
-        print(array.count)
+    mutating func removeFirstAtOnce(array: [Int]) -> Float {
+        arrayAfterOperrations = array
         let start = CFAbsoluteTimeGetCurrent()
-        array.removeFirst(1000)
+        arrayAfterOperrations.removeFirst(1000)
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
-    func removeMiddleOneByOne(array: [Int]) -> Float {
-        var array = array
-        print(array.count)
+    mutating func removeMiddleOneByOne(array: [Int]) -> Float {
+        arrayAfterOperrations = array
         let start = CFAbsoluteTimeGetCurrent()
         for _ in 1...1000 {
-            let index = array.count/2
-            array.remove(at: index)
+            let index = arrayAfterOperrations.count/2
+            arrayAfterOperrations.remove(at: index)
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
-    func removeMiddleAtOnce(array: [Int]) -> Float {
-        var array = array
-        print(array.count)
-        let index = array.count/2 - 500
+    mutating func removeMiddleAtOnce(array: [Int]) -> Float {
+        arrayAfterOperrations = array
+        let index = arrayAfterOperrations.count/2 - 500
         let start = CFAbsoluteTimeGetCurrent()
-        array.removeSubrange(index...index + 1000)
+        arrayAfterOperrations.removeSubrange(index..<index + 1000)
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
     
-    func removeLastOneByOne(array: [Int]) -> Float {
-        var array = array
-        print(array.count)
+    mutating func removeLastOneByOne(array: [Int]) -> Float {
+        arrayAfterOperrations = array
         let start = CFAbsoluteTimeGetCurrent()
         for _ in 1...1000 {
-            array.removeLast()
+            arrayAfterOperrations.removeLast()
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
     
-    func removeLastAtOnce(array: [Int]) -> Float {
-        var array = array
-        print(array.count)
+    mutating func removeLastAtOnce(array: [Int]) -> Float {
+        arrayAfterOperrations = array
         let start = CFAbsoluteTimeGetCurrent()
-        array.removeLast(1000)
+        arrayAfterOperrations.removeLast(1000)
         let diff = CFAbsoluteTimeGetCurrent() - start
-        print(array.count)
         return Float(diff)
     }
 }

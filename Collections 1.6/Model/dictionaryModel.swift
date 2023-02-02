@@ -25,47 +25,41 @@ struct DictionaryStruct {
             arrayContact.append(name)
             dictionaryContact["Name\(i)"] = "+380 \(i)"
         }
-     print("Complete created array and Dictionary")
     }
     
     func findFirstArr(array: [Contact]) -> (Float, String?) {
-        print(array.count)
         let start = Date()
         let first = array.first?.name
         let end = Date()
         let diff = end.timeIntervalSince(start)
-        print(first ?? "nil")
         return (Float(diff), first)
     }
+    
     func findFirstDict(dictionary: [String:String]) -> (Float, String?) {
-        print(dictionary.count)
         let start = Date()
         let first = dictionary["Name1"]
         let end = Date()
         let diff = end.timeIntervalSince(start)
-        print(first ?? "nil")
         return (Float(diff), first)
     }
+    
     func findLastArr(array: [Contact]) -> (Float, String?) {
-        print(array.count)
         let start = Date()
         let last = array.last?.name
         let end = Date()
         let diff = end.timeIntervalSince(start)
-        print(last ?? "nil")
         return (Float(diff), last)
     }
+    
     func findLasttDict(dictionary: [String:String]) -> (Float, String?) {
-        print(dictionary.count)
         let start = Date()
         let last = dictionary["Name10000000"]
         let end = Date()
         let diff = end.timeIntervalSince(start)
-        print(last ?? "nil")
         return (Float(diff), last)
     }
+    
     func findNoElelentsArr(array: [Contact]) -> (Float, String?) {
-        print(array.count)
         var find: String? = nil
         let start = Date()
         for i in array {
@@ -75,18 +69,14 @@ struct DictionaryStruct {
         }
         let end = Date()
         let diff = end.timeIntervalSince(start)
-        print(find ?? "nil")
         return (Float(diff), find)
-        
     }
     
     func findNoElementsDict(dictionary: [String:String]) -> (Float, String?) {
-        print(dictionary.count)
         let start = Date()
         let last = dictionary["Name"]
         let end = Date()
         let diff = end.timeIntervalSince(start)
-        print(last ?? "nil")
         return (Float(diff), last)
     }
 }

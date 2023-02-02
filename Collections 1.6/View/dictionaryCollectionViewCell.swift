@@ -57,12 +57,13 @@ class dictionaryCollectionViewCell: UICollectionViewCell {
         label.text = dictStruct.menuItem[indexPath]
         backgroundColor = .secondaryLabel
     }
-    func setResultTime(time:Float, element: String?){
+    func setResultTime(time:inout Float, element: String?){
         if element != nil, let text = element {
             label.text = "\(text)\nSearch time = \(time) sec"
         } else {
             label.text = "Element not Found \n Search time = \(time) sec"
         }
         backgroundColor = .white
+        time = 0
     }
 }

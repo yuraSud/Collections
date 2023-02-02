@@ -10,7 +10,7 @@ import UIKit
 class setViewController: UIViewController {
     
     static let ident = "setViewController"
-    private let set = Setmatching()
+    private let setModel = Setmatching()
     
     @IBOutlet weak var firstTextField: UITextField!
     @IBOutlet weak var secondTextField: UITextField!
@@ -28,19 +28,19 @@ class setViewController: UIViewController {
     
     @IBAction func allMatcinng(_ sender: UIButton) {
         guard let text1 = firstTextField.text, let text2 = secondTextField.text else {return}
-        let resultMatching = set.allMtchingLetters(text1: text1, text2: text2)
+        let resultMatching = setModel.allMtchingLetters(text1: text1, text2: text2)
         labelAllMatching.text = resultMatching
     }
     
     @IBAction func notMatching(_ sender: UIButton) {
         guard let text1 = firstTextField.text, let text2 = secondTextField.text else {return}
-        let resultMatching = set.noMtchingLetters(text1: text1, text2: text2)
+        let resultMatching = setModel.noMtchingLetters(text1: text1, text2: text2)
         labelNotMatching.text = resultMatching
     }
     
     @IBAction func uniqueCharactersFirstTF(_ sender: UIButton) {
         guard let text1 = firstTextField.text, let text2 = secondTextField.text else {return}
-        let resultMatching = set.uniqueFirstTFLetters(text1: text1, text2: text2)
+        let resultMatching = setModel.uniqueFirstTFLetters(text1: text1, text2: text2)
         labelUniqueFirstTF.text = resultMatching
     }
 }
@@ -51,7 +51,12 @@ extension setViewController: UITextFieldDelegate {
         let currentText = textField.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
         let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        return set.onlyLetters(text: updatedText)
+        
+        return setModel.onlyLetters(text: updatedText)
+    }
+    func onlyLetters(text: String) -> Bool {
+        let regularExpression = "[A-Za-z А-Яа-я]{0,}"
+        return NSPredicate(format: "SELF MATCHES %@", regularExpression).evaluate(with: text)
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
