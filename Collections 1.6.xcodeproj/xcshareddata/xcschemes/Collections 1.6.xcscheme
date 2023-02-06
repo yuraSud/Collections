@@ -42,19 +42,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4387E3A7298AE19A00CD1A30"
-               BuildableName = "SetCollections 1.6Tests.xctest"
-               BlueprintName = "SetCollections 1.6Tests"
-               ReferencedContainer = "container:Collections 1.6.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "43FFC55E298C249B00222CDD"
-               BuildableName = "DictionaryCollections 1.6Tests.xctest"
-               BlueprintName = "DictionaryCollections 1.6Tests"
+               BlueprintIdentifier = "43EF3011298D87430084E93F"
+               BuildableName = "Collections 1.6_UITests.xctest"
+               BlueprintName = "Collections 1.6_UITests"
                ReferencedContainer = "container:Collections 1.6.xcodeproj">
             </BuildableReference>
          </TestableReference>

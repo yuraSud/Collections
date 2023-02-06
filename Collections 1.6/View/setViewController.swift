@@ -23,6 +23,8 @@ class setViewController: UIViewController {
         super.viewDidLoad()
         firstTextField.delegate = self
         secondTextField.delegate = self
+        firstTextField.accessibilityIdentifier = "FirstTF"
+        secondTextField.accessibilityIdentifier = "SecondTF"
         
     }
     
