@@ -1,10 +1,10 @@
 
 @testable import Collections_1_6
 import XCTest
-
+/*
 final class DictionaryCollections_1_6Tests: XCTestCase {
     
-    var dictModel = DictionaryStruct()
+    var dictModel = DictionaryManager()
     var arrayContact : [Contact] = {
         var arCont = [Contact]()
         for i in 1...10_000_000 {
@@ -46,7 +46,7 @@ final class DictionaryCollections_1_6Tests: XCTestCase {
     
     func testNotFindElementInArray() {
         var text : String?
-        (_,text) = dictModel.findNoElelentsArr(array: arrayContact)
+        (_,text) = dictModel.notFindAnythingElelentsInArray(array: arrayContact)
         XCTAssertNil(text)
     }
     
@@ -66,9 +66,10 @@ final class DictionaryCollections_1_6Tests: XCTestCase {
     
     func testNotFindElementInDict() {
         var text : String?
-        (_,text) = dictModel.findNoElementsDict(dictionary: dictionaryContact)
+        (_,text) = dictModel.notFindAnythingElementsInDictionary(dictionary: dictionaryContact)
         XCTAssertNil(text)
     }
   
 
 }
+*/

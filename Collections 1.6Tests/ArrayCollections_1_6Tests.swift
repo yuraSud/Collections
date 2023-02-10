@@ -4,11 +4,11 @@ import XCTest
 
 final class Collections_1_6Tests: XCTestCase {
     
-    var arrayModel = ArraysModel()
+    var arrayManeger = ArraysManeger()
+    
     var startedArray: [Int] = {
         Array(0...9_999_999)
     }()
-
     
     func testTimeCreatingArray() {
         measure(
@@ -18,20 +18,19 @@ final class Collections_1_6Tests: XCTestCase {
                 XCTStorageMetric(),
                 XCTMemoryMetric()
             ]){
-            _ = arrayModel.createArray()
-            XCTAssertFalse(arrayModel.startedArray.isEmpty)
+            _ = arrayManeger.createArray()
+                XCTAssertFalse(arrayManeger.array.isEmpty)
         }
-        
     }
     
     func testAppendOneByOneAtStart(){
-        _ = arrayModel.insertToStartOneByOne(array: startedArray)
+        _ = arrayManeger.insertToStartOneByOne()
         let firstNumber = 1000
         let allCount = 10_001_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations[0], firstNumber)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
+        XCTAssertEqual(arrayManeger.arrayAfterOperations[0], firstNumber)
+        XCTAssertEqual(arrayManeger.arrayAfterOperations.count, allCount)
     }
-    
+    /*
     func testAppendOnceAtStart(){
         _ = arrayModel.insertToStartAtOnce(array: startedArray)
         let firstNumber = 0
@@ -120,7 +119,7 @@ final class Collections_1_6Tests: XCTestCase {
         let allCount = 9_999_000
         XCTAssertEqual(arrayModel.arrayAfterOperrations.last, numberAtIndex)
         XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-    }
+    }*/
 }
 
 

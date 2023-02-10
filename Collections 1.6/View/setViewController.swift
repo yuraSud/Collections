@@ -9,8 +9,8 @@ import UIKit
 
 class setViewController: UIViewController {
     
-    static let ident = "setViewController"
-    private let setModel = Setmatching()
+    static let storyboardIdentifier = "setViewController"
+    private let setModel = SetManager()
     
     @IBOutlet weak var firstTextField: UITextField!
     @IBOutlet weak var secondTextField: UITextField!
@@ -30,13 +30,13 @@ class setViewController: UIViewController {
     
     @IBAction func allMatcinng(_ sender: UIButton) {
         guard let text1 = firstTextField.text, let text2 = secondTextField.text else {return}
-        let resultMatching = setModel.allMtchingLetters(text1: text1, text2: text2)
+        let resultMatching = setModel.allMatchingLetters(text1: text1, text2: text2)
         labelAllMatching.text = resultMatching
     }
     
     @IBAction func notMatching(_ sender: UIButton) {
         guard let text1 = firstTextField.text, let text2 = secondTextField.text else {return}
-        let resultMatching = setModel.noMtchingLetters(text1: text1, text2: text2)
+        let resultMatching = setModel.noMatchingLetters(text1: text1, text2: text2)
         labelNotMatching.text = resultMatching
     }
     

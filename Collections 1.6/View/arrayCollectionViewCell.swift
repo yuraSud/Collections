@@ -9,8 +9,8 @@ import UIKit
 
 class arrayCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "myArrayCell"
-    var array = ArraysModel()
+    static let cellTableIdentifier = "myArrayCell"
+   //var array = ArraysModel()
     
     var myLabel: UILabel = {
         let lab = UILabel()
@@ -18,15 +18,15 @@ class arrayCollectionViewCell: UICollectionViewCell {
         return lab
     }()
     
-    var activityIndycator = UIActivityIndicatorView(style: .medium)
+    var activityIndicator = UIActivityIndicatorView(style: .medium)
     
     override init(frame: CGRect) {
         super .init(frame: frame)
         contentView.contentMode = .center
         contentView.addSubview(myLabel)
-        contentView.addSubview(activityIndycator)
-        activityIndycator.hidesWhenStopped = true
-        activityIndycator.color = .blue
+        contentView.addSubview(activityIndicator)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .blue
     }
     
     required init?(coder: NSCoder) {
@@ -35,13 +35,13 @@ class arrayCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        activityIndycator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndycator.center = contentView.center
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.center = contentView.center
         myLabel.frame = contentView.bounds
     }
     
     func setLabelForStartText(for indexPath: Int){
-        myLabel.text = array.arrayLabelMethods[indexPath].titleLabel
+        myLabel.text = TitleForCell.arrayLabelMethods[indexPath]
         myLabel.textAlignment = .center
         myLabel.layer.borderWidth = 1
         myLabel.layer.borderColor = UIColor.black.cgColor
@@ -49,14 +49,13 @@ class arrayCollectionViewCell: UICollectionViewCell {
     
     func startActivity(){
         myLabel.text = ""
-        activityIndycator.startAnimating()
+        activityIndicator.startAnimating()
         backgroundColor = .white
     }
     
-    func createArrayForStart() -> (Float,[Int]) {
+    func createArrayForStart(array:inout ArraysManeger) -> Float {
         let timeCreated = array.createArray()
-        let fullArray = array.startedArray
-        return (timeCreated, fullArray)
+        return timeCreated
     }
     
     func setLabelfirst(timeCreated: Float){
@@ -65,13 +64,14 @@ class arrayCollectionViewCell: UICollectionViewCell {
     }
     
     func stopAnimating(){
-        activityIndycator.stopAnimating()
+        activityIndicator.stopAnimating()
     }
     
     func setResultTime(time:inout Float){
         backgroundColor = .white
-        activityIndycator.stopAnimating()
+        activityIndicator.stopAnimating()
         myLabel.text = "Time creations = \(time) sec"
         time = 0
     }
 }
+

@@ -1,17 +1,14 @@
-//
-//  dictionaryCollectionViewCell.swift
-//  Collections 1.6
-//
-//  Created by YURA																			 on 26.01.2023.
-//
+
 
 import UIKit
 
 class dictionaryCollectionViewCell: UICollectionViewCell {
-    var dictStruct = DictionaryStruct()
     
-    var activityIndycator = UIActivityIndicatorView(style: .medium)
-    static let identifier = "myCell"
+    var dictManager = DictionaryManager()
+    
+    var activityIndicator = UIActivityIndicatorView(style: .medium)
+    static let identifierForDictionaryCell = "myCell"
+    
     let label : UILabel = {
         let lab = UILabel()
         lab.text = "yura"
@@ -35,34 +32,32 @@ class dictionaryCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         label.frame = contentView.bounds
-        activityIndycator.center = contentView.center
+        activityIndicator.center = contentView.center
     }
    
     func startActivity(){
         label.text = ""
-        activityIndycator.startAnimating()
+        activityIndicator.startAnimating()
         backgroundColor = .white
     }
+    
     func stopAnimating(){
-        activityIndycator.stopAnimating()
+        activityIndicator.stopAnimating()
     }
     
     func setActivity(){
-        contentView.addSubview(activityIndycator)
-        activityIndycator.hidesWhenStopped = true
-        activityIndycator.color = .red
+        contentView.addSubview(activityIndicator)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .red
     }
     
     func setLabelForStart(for indexPath: Int){
-        label.text = dictStruct.menuItem[indexPath]
+        label.text = TitleForCell.dictionaryLabelMethods[indexPath]
         backgroundColor = .secondaryLabel
     }
-    func setResultTime(time:inout Float, element: String?){
-        if element != nil, let text = element {
-            label.text = "\(text)\nSearch time = \(time) sec"
-        } else {
-            label.text = "Element not Found \n Search time = \(time) sec"
-        }
+    
+    func setResultTime(time:inout Float){
+        label.text = "Search time = \(time) sec"
         backgroundColor = .white
         time = 0
     }

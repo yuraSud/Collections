@@ -9,7 +9,7 @@ import UIKit
 
 class HeaderReusableView: UICollectionReusableView {
    
-    static let identificator =  "HeaderIdentForCollectionView"
+    static let headerIdentifier =  "HeaderIdentForCollectionView"
     
     private let labelArray: UILabel = {
         let lab = UILabel()
@@ -17,12 +17,14 @@ class HeaderReusableView: UICollectionReusableView {
         lab.textAlignment = .center
         return lab
     }()
+    
     private let labelDictionary: UILabel = {
         let lab = UILabel()
         lab.text = "Dictionary"
         lab.textAlignment = .center
         return lab
     }()
+    
     var stack = UIStackView()
     
     func configure(){
@@ -32,6 +34,7 @@ class HeaderReusableView: UICollectionReusableView {
         stack.distribution = .fillEqually
         addSubview(stack)
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         stack.frame = bounds

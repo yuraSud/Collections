@@ -4,9 +4,7 @@ import UIKit
 
 class dictionaryViewController: UIViewController {
 
-    var arrayContact = [Contact]()
-    var dictionaryContact: [String:String] = [:]
-    var dictionaryStruct = DictionaryStruct()
+    var dictionaryManager = DictionaryManager()
     var activityIndicator = UIActivityIndicatorView(style: .medium)
     
     private let collectionView: UICollectionView = {
@@ -23,7 +21,7 @@ class dictionaryViewController: UIViewController {
         view.backgroundColor = .white
         
         DispatchQueue.global(qos: .utility).async {
-            (self.arrayContact, self.dictionaryContact) = self.createData()
+            self.dictionaryManager.createArrayAndDictionary()
             DispatchQueue.main.async {
                 self.collectionView.alpha = 1.0
                 self.activityIndicator.stopAnimating()
@@ -49,16 +47,8 @@ class dictionaryViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(dictionaryCollectionViewCell.self, forCellWithReuseIdentifier: dictionaryCollectionViewCell.identifier)
-        collectionView.register(HeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderReusableView.identificator)
-    }
-    
-    func createData() -> ([Contact], [String : String]) {
-        var create = DictionaryStruct()
-        create.createArrayAndDictionary()
-        let array = create.arrayContact
-        let dict = create.dictionaryContact
-        return (array, dict)
+        collectionView.register(dictionaryCollectionViewCell.self, forCellWithReuseIdentifier: dictionaryCollectionViewCell.identifierForDictionaryCell)
+        collectionView.register(HeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderReusableView.headerIdentifier)
     }
 }
 
@@ -70,18 +60,18 @@ extension dictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dictionaryStruct.menuItem.count
+        return TitleForCell.dictionaryLabelMethods.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dictionaryCollectionViewCell.identifier, for: indexPath) as? dictionaryCollectionViewCell else { fatalError("not cell") }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dictionaryCollectionViewCell.identifierForDictionaryCell, for: indexPath) as? dictionaryCollectionViewCell else { return UICollectionViewCell() }
         cell.setLabelForStart(for: indexPath.row)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderReusableView.identificator, for: indexPath) as! HeaderReusableView
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderReusableView.headerIdentifier, for: indexPath) as! HeaderReusableView
         header.configure()
         return header
     }
@@ -93,40 +83,40 @@ extension dictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? dictionaryCollectionViewCell else {fatalError("Not found cell at 3th screen")}
         var time: Float = 0
-        var text: String? = nil
         
-        guard !arrayContact.isEmpty else {return}
+        guard !dictionaryManager.arrayContact.isEmpty, !dictionaryManager.dictionaryContact.isEmpty else {return}
         
         switch indexPath.row {
         case 0 :
-            (time, text) = dictionaryStruct.findFirstArr(array: arrayContact)
+            time = dictionaryManager.findFirstArr()
             
         case 1 :
-            (time, text) = dictionaryStruct.findFirstDict(dictionary: dictionaryContact)
+            time = dictionaryManager.findFirstDict()
             
         case 2 :
-            (time, text) = dictionaryStruct.findLastArr(array: arrayContact)
+            time = dictionaryManager.findLastArr()
             
         case 3 :
-            (time, text) = dictionaryStruct.findLasttDict(dictionary: dictionaryContact)
+            time = dictionaryManager.findLasttDict()
             
         case 4 :
             cell.startActivity()
             DispatchQueue.global().async {
-                (time, text) = self.dictionaryStruct.findNoElelentsArr(array: self.arrayContact)
+                time = self.dictionaryManager.notFindAnythingElelentsInArray()
                 DispatchQueue.main.async {
                     cell.stopAnimating()
-                    cell.setResultTime(time: &time, element: text)
+                    cell.setResultTime(time: &time)
                 }
             }
         
         case 5 :
-            (time, text) = dictionaryStruct.findNoElementsDict(dictionary:  dictionaryContact)
+            time = dictionaryManager.notFindAnythingElementsInDictionary()
             
         default: break
         }
+        
         guard time != 0 else { return }
-        cell.setResultTime(time: &time, element: text)
+        cell.setResultTime(time: &time)
     }
 }
 
