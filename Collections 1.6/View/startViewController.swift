@@ -6,10 +6,15 @@ class startViewController: UIViewController {
     
     private let menuItem = ["Array","Set","Dictionary"]
    
-    enum Collections: CaseIterable {
-        case Array
-        case Set
-        case Dictionary
+    enum Collections: String, CaseIterable {
+        case array = "Array"
+        case set = "Set"
+        case dictionary = "Dictionary"
+    }
+    enum StoryboardsNames: String {
+        case array = "arrayViewController"
+        case set = "set"
+        case dictionary = "Dictionary"
     }
     
     override func viewDidLoad() {
@@ -25,7 +30,7 @@ extension startViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         var config = cell.defaultContentConfiguration()
-        config.text = "\(Collections.allCases[indexPath.row])"
+        config.text = "\(Collections.allCases[indexPath.row].rawValue)"
         cell.contentConfiguration = config
         return cell
     }
@@ -36,25 +41,24 @@ extension startViewController: UITableViewDelegate, UITableViewDataSource {
        
         switch item {
         
-        case .Array :
-            let storyboard = UIStoryboard(name: "arrayViewController", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: arrayViewController.storyboardIdentifier)
-            let index = Int.random(in: 1001...2000)
-            vc.title = "Array \(index)"
-            navigationController?.pushViewController(vc, animated: true)
+        case .array :
+            goToViewController(nameViewController: StoryboardsNames.array, range: (1001..<2000), identifier: arrayViewController.storyboardIdentifier, title: Collections.array.rawValue)
         
-        case .Set :
-            let storyboard = UIStoryboard(name: "set", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: setViewController.storyboardIdentifier)
-            let index = Int.random(in: 11...99)
-            vc.title = "Set \(index)"
-            navigationController?.pushViewController(vc, animated: true)
-        
-        case .Dictionary :
+        case .set :
+            goToViewController(nameViewController: StoryboardsNames.set, range: 11..<100, identifier: setViewController.storyboardIdentifier, title: Collections.set.rawValue)
+            
+        case .dictionary :
             let vc = dictionaryViewController()
             let index = Int.random(in: 101...999)
             vc.title = "Dictionary \(index)"
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    func goToViewController(nameViewController:StoryboardsNames, range: Range<Int>, identifier: String, title: String){
+        let storyboard = UIStoryboard(name: nameViewController.rawValue, bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: identifier)
+        let index = Int.random(in: range)
+        vc.title = "\(title) \(index)"
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

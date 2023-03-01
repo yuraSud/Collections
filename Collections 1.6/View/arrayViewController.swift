@@ -40,12 +40,11 @@ class arrayViewController: UIViewController {
     @IBAction func createArrayBut(_ sender: Any) {
         guard arrayModel.array.isEmpty else {return}
         activityIndicator.startAnimating()
-        let cell = arrayCollectionViewCell()
         createArrayButton.backgroundColor = .white
         createArrayButton.setTitle("", for: .normal)
         
         DispatchQueue.global().async{
-            let timeCreateArray = cell.createArrayForStart(array: &self.arrayModel)
+            let timeCreateArray = self.arrayModel.createArray()
             DispatchQueue.main.async {
                 self.arrayLabel = TitleForCell.arrayLabelMethods
                 self.activityIndicator.stopAnimating()
@@ -85,78 +84,52 @@ extension arrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         var timeOperation: Float = 0.0
         
-        switch indexPath.row {
-        
-        case 0 :
-            DispatchQueue.global().async{
+        DispatchQueue.global(qos: .utility).async{
+            switch indexPath.row {
+                
+            case 0 :
                 timeOperation = self.arrayModel.insertToStartOneByOne()
-                DispatchQueue.main.async {
-                    cell.setResultTime(time: &timeOperation)
-                }
-            }
-            
-        case 1 :
-            timeOperation = arrayModel.insertToStartAtOnce()
-            
-        case 2 :
-            DispatchQueue.global().async{
+                
+            case 1 :
+                timeOperation = self.arrayModel.insertToStartAtOnce()
+                
+            case 2 :
                 timeOperation = self.arrayModel.insertToMiddleOneByOne()
-                DispatchQueue.main.async {
-                    cell.setResultTime(time: &timeOperation)
-                }
-            }
-            
-        case 3 :
-            timeOperation = arrayModel.insertToMiddleAtOnce()
-            
-        case 4 :
-            DispatchQueue.global().async{
+                
+            case 3 :
+                timeOperation = self.arrayModel.insertToMiddleAtOnce()
+                
+            case 4 :
                 timeOperation = self.arrayModel.appendToEndOneByOne()
-                DispatchQueue.main.async {
-                    cell.setResultTime(time: &timeOperation)
-                }
-            }
-            
-        case 5 :
-            timeOperation = arrayModel.appendToEndAtOnce()
-            
-        case 6 :
-            DispatchQueue.global().async{
+                
+            case 5 :
+                timeOperation = self.arrayModel.appendToEndAtOnce()
+                
+            case 6 :
                 timeOperation = self.arrayModel.removeFirstOneByOne()
-                DispatchQueue.main.async {
-                    cell.setResultTime(time: &timeOperation)
-                }
-            }
-            
-        case 7 :
-            timeOperation = arrayModel.removeFirstAtOnce()
-            
-        case 8 :
-            DispatchQueue.global().async{
+                
+            case 7 :
+                timeOperation = self.arrayModel.removeFirstAtOnce()
+                
+            case 8 :
                 timeOperation = self.arrayModel.removeMiddleOneByOne()
-                DispatchQueue.main.async {
-                    cell.setResultTime(time: &timeOperation)
-                }
-            }
-            
-        case 9 :
-            timeOperation = arrayModel.removeMiddleAtOnce()
-            
-        case 10 :
-            DispatchQueue.global().async{
+                
+            case 9 :
+                timeOperation = self.arrayModel.removeMiddleAtOnce()
+                
+            case 10 :
                 timeOperation = self.arrayModel.removeLastOneByOne()
-                DispatchQueue.main.async {
-                    cell.setResultTime(time: &timeOperation)
-                }
+                
+            case 11 :
+                timeOperation = self.arrayModel.removeLastAtOnce()
+                
+            default: break
             }
-            
-        case 11 :
-            timeOperation = arrayModel.removeLastAtOnce()
-        
-        default: break
+            DispatchQueue.main.async {
+                guard timeOperation != 0 else { return }
+                cell.setResultTime(time: &timeOperation)
+            }
         }
-        
-        guard timeOperation != 0 else { return }
-            cell.setResultTime(time: &timeOperation)
     }
+   
 }

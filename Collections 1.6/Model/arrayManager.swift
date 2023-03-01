@@ -3,7 +3,8 @@ import Foundation
 
 struct ArraysManeger {
     var array = [Int]()
-    var arrayAfterOperations = [Int]()
+    let semaphore = DispatchSemaphore(value: 1)
+    
     
     mutating func createArray() -> Float {
         let start = CFAbsoluteTimeGetCurrent()
@@ -13,115 +14,127 @@ struct ArraysManeger {
     }
     
     mutating func insertToStartOneByOne() -> Float {
-        arrayAfterOperations = array
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
         for i in 1...1000 {
-            arrayAfterOperations.insert(i, at: 0)
+            array.insert(i, at: 0)
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     
     mutating func insertToStartAtOnce() -> Float {
-        arrayAfterOperations = array
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
         let arrayAppend = Array(1...1000)
-        arrayAfterOperations.insert(contentsOf: arrayAppend, at: 0)
+        array.insert(contentsOf: arrayAppend, at: 0)
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     
     mutating func insertToMiddleOneByOne() -> Float {
-        arrayAfterOperations = array
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
         for i in 1...1000 {
             let index = array.count/2
-            arrayAfterOperations.insert(i, at: index)
+            array.insert(i, at: index)
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     
     mutating func insertToMiddleAtOnce() -> Float {
-        arrayAfterOperations = array
-        let index = arrayAfterOperations.count/2
+        let index = array.count/2
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
         let arrayAppend = Array(1...1000)
-        arrayAfterOperations.insert(contentsOf: arrayAppend, at: index)
+        array.insert(contentsOf: arrayAppend, at: index)
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     mutating func appendToEndOneByOne() -> Float {
-        arrayAfterOperations = array
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
         for i in 1...1000 {
-            arrayAfterOperations.append(i)
+            array.append(i)
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     
     mutating func appendToEndAtOnce() -> Float {
-        arrayAfterOperations = array
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
         let arrayAppend = Array(1...1000)
-        arrayAfterOperations.append(contentsOf: arrayAppend)
+        array.append(contentsOf: arrayAppend)
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     
     mutating func removeFirstOneByOne() -> Float {
-        arrayAfterOperations = array
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
         for _ in 1...1000 {
-            arrayAfterOperations.removeFirst()
+            array.removeFirst()
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     mutating func removeFirstAtOnce() -> Float {
-        arrayAfterOperations = array
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
-        arrayAfterOperations.removeFirst(1000)
+        array.removeFirst(1000)
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     
     mutating func removeMiddleOneByOne() -> Float {
-        arrayAfterOperations = array
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
         for _ in 1...1000 {
-            let index = arrayAfterOperations.count/2
-            arrayAfterOperations.remove(at: index)
+            let index = array.count/2
+            array.remove(at: index)
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     
     mutating func removeMiddleAtOnce() -> Float {
-        arrayAfterOperations = array
-        let index = arrayAfterOperations.count/2 - 500
+        semaphore.wait()
+        let index = array.count/2 - 500
         let start = CFAbsoluteTimeGetCurrent()
-        arrayAfterOperations.removeSubrange(index..<index + 1000)
+        array.removeSubrange(index..<index + 1000)
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     
     mutating func removeLastOneByOne() -> Float {
-        arrayAfterOperations = array
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
         for _ in 1...1000 {
-            arrayAfterOperations.removeLast()
+            array.removeLast()
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
     
     mutating func removeLastAtOnce() -> Float {
-        arrayAfterOperations = array
+        semaphore.wait()
         let start = CFAbsoluteTimeGetCurrent()
-        arrayAfterOperations.removeLast(1000)
+        array.removeLast(1000)
         let diff = CFAbsoluteTimeGetCurrent() - start
+        semaphore.signal()
         return Float(diff)
     }
 }
