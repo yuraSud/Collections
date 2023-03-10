@@ -84,39 +84,41 @@ extension dictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
         guard let cell = collectionView.cellForItem(at: indexPath) as? dictionaryCollectionViewCell else {fatalError("Not found cell at 3th screen")}
         var time: Float = 0
         
-        guard !dictionaryManager.arrayContact.isEmpty, !dictionaryManager.dictionaryContact.isEmpty else {return}
+        guard !dictionaryManager.arrayContact.isEmpty && !dictionaryManager.dictionaryContact.isEmpty else {return}
         
-        switch indexPath.row {
-        case 0 :
-            time = dictionaryManager.findFirstArr()
+        cell.startActivity()
+        DispatchQueue.global().async {
             
-        case 1 :
-            time = dictionaryManager.findFirstDict()
-            
-        case 2 :
-            time = dictionaryManager.findLastArr()
-            
-        case 3 :
-            time = dictionaryManager.findLasttDict()
-            
-        case 4 :
-            cell.startActivity()
-            DispatchQueue.global().async {
+            switch indexPath.row {
+            case 0 :
+                time = self.dictionaryManager.findFirstArr()
+                
+            case 1 :
+                time = self.dictionaryManager.findFirstDict()
+                
+            case 2 :
+                time = self.dictionaryManager.findLastArr()
+                
+            case 3 :
+                time = self.dictionaryManager.findLasttDict()
+                
+            case 4 :
                 time = self.dictionaryManager.notFindAnythingElelentsInArray()
-                DispatchQueue.main.async {
-                    cell.stopAnimating()
-                    cell.setResultTime(time: &time)
-                }
+                
+            case 5 :
+                time = self.dictionaryManager.notFindAnythingElementsInDictionary()
+                
+            default: break
             }
-        
-        case 5 :
-            time = dictionaryManager.notFindAnythingElementsInDictionary()
             
-        default: break
+            guard time != 0 else { return }
+           
+            DispatchQueue.main.async {
+                cell.stopAnimating()
+                cell.setResultTime(time: &time)
+                
+            }
         }
-        
-        guard time != 0 else { return }
-        cell.setResultTime(time: &time)
     }
 }
 

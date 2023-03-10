@@ -11,6 +11,7 @@ struct DictionaryManager {
    
     var arrayContact = [Contact]()
     var dictionaryContact: [String:String] = [:]
+    var contact = ""
     
     mutating func createArrayAndDictionary(){
         for i in 1...10_000_000 {
@@ -20,43 +21,45 @@ struct DictionaryManager {
         }
     }
     
-    func findFirstArr() -> Float {
+    mutating func findFirstArr() -> Float {
         let start = Date()
-        let first = arrayContact.first?.name
+        contact = arrayContact.first?.name ?? "Not found"
         let end = Date()
         let diff = end.timeIntervalSince(start)
         return Float(diff)
     }
     
-    func findFirstDict() -> Float {
+    mutating func findFirstDict() -> Float {
         let start = Date()
-        let first = dictionaryContact["Name1"]
+        contact = dictionaryContact["Name1"] ?? "Not found"
         let end = Date()
         let diff = end.timeIntervalSince(start)
         return Float(diff)
     }
     
-    func findLastArr() -> Float {
+    mutating func findLastArr() -> Float {
         let start = Date()
-        let last = arrayContact.last?.name
+        contact = arrayContact.last?.name ?? "Not found"
         let end = Date()
         let diff = end.timeIntervalSince(start)
         return Float(diff)
     }
     
-    func findLasttDict() -> Float {
+    mutating func findLasttDict() -> Float {
         let start = Date()
-        let last = dictionaryContact["Name10000000"]
+        contact = dictionaryContact["Name10000000"] ?? "Not found"
         let end = Date()
         let diff = end.timeIntervalSince(start)
         return Float(diff)
     }
     
-    func notFindAnythingElelentsInArray() -> Float {
+    mutating func notFindAnythingElelentsInArray() -> Float {
         let start = Date()
         for i in arrayContact {
             if i.name == "Nam" {
-                let _ = i.name
+                contact = i.name
+            } else {
+                contact = "Not found"
             }
         }
         let end = Date()
@@ -64,9 +67,9 @@ struct DictionaryManager {
         return Float(diff)
     }
     
-    func notFindAnythingElementsInDictionary() -> Float {
+    mutating func notFindAnythingElementsInDictionary() -> Float {
         let start = Date()
-        let last = dictionaryContact["Name"]
+        contact = dictionaryContact["Name"] ?? "Not found"
         let end = Date()
         let diff = end.timeIntervalSince(start)
         return Float(diff)

@@ -1,7 +1,7 @@
 
 import Foundation
 
-struct ArraysManeger {
+struct ArraysManager {
     var array = [Int]()
     let semaphore = DispatchSemaphore(value: 1)
     

@@ -53,7 +53,7 @@ class arrayCollectionViewCell: UICollectionViewCell {
         backgroundColor = .white
     }
     
-    func createArrayForStart(array:inout ArraysManeger) -> Float {
+    func createArrayForStart(array:inout ArraysManager) -> Float {
         let timeCreated = array.createArray()
         return timeCreated
     }

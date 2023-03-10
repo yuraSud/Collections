@@ -4,122 +4,103 @@ import XCTest
 
 final class Collections_1_6Tests: XCTestCase {
     
-    var arrayManeger = ArraysManeger()
+    var arrayManager = ArraysManager()
     
-    var startedArray: [Int] = {
-        Array(0...9_999_999)
-    }()
-    
-    func testTimeCreatingArray() {
-        measure(
-            metrics: [
-                XCTClockMetric(),
-                XCTCPUMetric(),
-                XCTStorageMetric(),
-                XCTMemoryMetric()
-            ]){
-            _ = arrayManeger.createArray()
-                XCTAssertFalse(arrayManeger.array.isEmpty)
-        }
+    override func setUpWithError() throws {
+        _ = arrayManager.createArray()
     }
     
-    func testAppendOneByOneAtStart(){
-        _ = arrayManeger.insertToStartOneByOne()
-        let firstNumber = 1000
-        let allCount = 10_001_000
-        XCTAssertEqual(arrayManeger.arrayAfterOperations[0], firstNumber)
-        XCTAssertEqual(arrayManeger.arrayAfterOperations.count, allCount)
-    }
-    /*
-    func testAppendOnceAtStart(){
-        _ = arrayModel.insertToStartAtOnce(array: startedArray)
-        let firstNumber = 0
-        let allCount = 10_001_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations[1000], firstNumber)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-    }
-    func testAppendOneByOneAtMiddle(){
-        _ = arrayModel.insertToMiddleOneByOne(array: startedArray)
-        let numberAtIndex = 1000
-        let index = startedArray.count/2
-        let endIndex = index + 1000
-        let numberOfEndIndex = 10_000_000/2
-        let allCount = 10_001_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations[index], numberAtIndex)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations[endIndex], numberOfEndIndex)
+    func testArrayAfterCreationForTrue() {
+        XCTAssertTrue(arrayManager.array.count == 10_000_000)
+        XCTAssertFalse(arrayManager.array.count == 0)
     }
     
-    func testAppendOnceAtMiddle(){
-        _ = arrayModel.insertToMiddleAtOnce(array: startedArray)
-        let number = 1
-        let index = startedArray.count/2
-        let allCount = 10_001_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations[index], number)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
+    func testArrayInsertElementsToStartOneByOne() {
+        _ = arrayManager.insertToStartOneByOne()
+        print(arrayManager.array.count)
+        XCTAssertTrue(arrayManager.array.count == 10_001_000)
+        let addedArray = 1000
+        let originalArray = 0
+        XCTAssertEqual(arrayManager.array[0], addedArray)
+        XCTAssertEqual(arrayManager.array[1000], originalArray)
     }
-    
-    func testAppendOneByOneAtEnd(){
-        _ = arrayModel.appendToEndOneByOne(array: startedArray)
-        let numberAtIndex = 1000
-        let allCount = 10_001_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.last, numberAtIndex)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-    }
-    
-    func testAppendOnceAtEnd(){
-        _ = arrayModel.appendToEndAtOnce(array: startedArray)
-        let number = 1000
-        let allCount = 10_001_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.last, number)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-    }
-    
-    func testRemoveOneByOneAtStart(){
-        _ = arrayModel.removeFirstOneByOne(array: startedArray)
-        let numberAtIndex = 1000
-        let allCount = 9_999_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.first, numberAtIndex)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-    }
-    func testRemoveOnceAtStart(){
-        _ = arrayModel.removeFirstAtOnce(array: startedArray)
-        let number = 1000
-        let allCount = 9_999_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.first, number)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-    }
-    func testRemoveOneByOneAtMiddle(){
-        _ = arrayModel.removeMiddleOneByOne(array: startedArray)
-        let numberAtIndex = 5_000_500
-        let indexMiddle = (startedArray.count - 1000) / 2
-        let allCount = 9_999_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations[indexMiddle], numberAtIndex)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-    }
-    func testRemoveOnceAtMiddle(){
-        _ = arrayModel.removeMiddleAtOnce(array: startedArray)
-        let numberAtIndex = 5_000_500
-        let indexMiddle = (startedArray.count - 1000) / 2
-        let allCount = 9_999_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations[indexMiddle], numberAtIndex)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-    }
-    
-    func testRemoveOneByOneAtLast(){
-        _ = arrayModel.removeLastOneByOne(array: startedArray)
-        let numberAtIndex = 9_999_999 - 1000
-        let allCount = 9_999_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.last, numberAtIndex)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-    }
-    func testRemoveOnceAtLast(){
-        _ = arrayModel.removeLastAtOnce(array: startedArray)
-        let numberAtIndex = 9_999_999 - 1000
-        let allCount = 9_999_000
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.last, numberAtIndex)
-        XCTAssertEqual(arrayModel.arrayAfterOperrations.count, allCount)
-    }*/
+
+       func testArrayInsertElementsToStartAtOnce() {
+           XCTAssertTrue(arrayManager.insertToStartAtOnce().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 10_001_000)
+           XCTAssertEqual(arrayManager.array[0], 1)
+           XCTAssertEqual(arrayManager.array[1000], 0)
+       }
+       
+       func testArrayinsertElementsToMiddleOneByOn() {
+           let middleArreyIndex = arrayManager.array.count / 2
+           XCTAssertTrue(arrayManager.insertToMiddleOneByOne().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 10_001_000)
+           let arrayData = 2
+           XCTAssertEqual(arrayManager.array[middleArreyIndex], arrayData)
+       }
+       
+       func testArrayinsertElementsToMiddleAtOnce() {
+           let middleArreyIndex = arrayManager.array.count / 2
+           XCTAssertTrue(arrayManager.insertToMiddleAtOnce().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 10_001_000)
+           let arrayData = 1
+           XCTAssertEqual(arrayManager.array[middleArreyIndex], arrayData)
+       }
+       
+       func testArrayAppendElementsToEndOneByOne() {
+           XCTAssertTrue(arrayManager.appendToEndOneByOne().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 10_001_000)
+           XCTAssertEqual(arrayManager.array.last, 1000)
+       }
+       
+       func testArrayAppenElementsToEndAtOnce() {
+           XCTAssertTrue(arrayManager.appendToEndAtOnce().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 10_001_000)
+           XCTAssertEqual(arrayManager.array.last, 1000)
+       }
+       
+       func testArrayRemoveFirstElementsOneByOne() {
+           XCTAssertTrue(arrayManager.removeFirstOneByOne().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 9_999_000)
+           XCTAssertEqual(arrayManager.array.first, 1000)
+       }
+       
+       func testArrayRemoveFirstElementsAtOnce() {
+           XCTAssertTrue(arrayManager.removeFirstAtOnce().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 9_999_000)
+           XCTAssertEqual(arrayManager.array.first, 1000)
+       }
+       
+       func testArrayRemoveMiddleElementsOneByOne() {
+           XCTAssertTrue(arrayManager.removeMiddleOneByOne().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 9_999_000)
+           let numberAtIndex = 5_000_500
+           let indexMiddle = arrayManager.array.count / 2
+           XCTAssertEqual(arrayManager.array[indexMiddle], numberAtIndex)
+       }
+       
+       func testArrayRemoveMiddleElementsAtOnce() {
+           XCTAssertTrue(arrayManager.removeMiddleAtOnce().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 9_999_000)
+           let numberAtIndex = 5_000_500
+           let indexMiddle = arrayManager.array.count / 2
+           XCTAssertEqual(arrayManager.array[indexMiddle], numberAtIndex)
+       }
+       
+       func testArrayRemoveLastElementsOneByOne() {
+           XCTAssertTrue(arrayManager.removeLastOneByOne().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 9_999_000)
+           let numberAtIndex = 9_999_999 - 1000
+           XCTAssertEqual(arrayManager.array.last, numberAtIndex)
+       }
+       
+       func testArrayRemoveLastElementsAtOnce() {
+           XCTAssertTrue(arrayManager.removeLastAtOnce().isFinite)
+           XCTAssertTrue(arrayManager.array.count == 9_999_000)
+           let numberAtIndex = 9_999_999 - 1000
+           XCTAssertEqual(arrayManager.array.last, numberAtIndex)
+       }
 }
 
 

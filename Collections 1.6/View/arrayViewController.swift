@@ -6,7 +6,7 @@ class arrayViewController: UIViewController {
     
     private var arrayLabel = [String]()
     static let storyboardIdentifier = "arrayViewController"
-    var arrayModel = ArraysManeger()
+    var arrayModel = ArraysManager()
     var activityIndicator = UIActivityIndicatorView(style: .medium)
     
     @IBOutlet weak var createArrayButton: UIButton!
